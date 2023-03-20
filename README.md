@@ -75,7 +75,7 @@ net = options['structure'][0][0][0][0]['net']
 
 # Plotting routines
 #==========================================================================
-fig, axs = plt.subplot_mosaic([['u','u'],['ll', 'lr']],figsize=(12,12))
+fig, axs = plt.subplot_mosaic([['u','u'],['ll', 'lr']],figsize=(12,12), facecolor='w')
 
 # Plot example time series data
 #--------------------------------------------------------------------------
@@ -413,7 +413,8 @@ net = opt['structure']['net']
 
 # Plotting routines
 #============================================================================================
-fig, ax = plt.subplots(1,4, figsize=(18,5))
+fig, ax = plt.subplots(1,4, figsize=(18,5), facecolor='w')
+min_alpha = 0.1
 
 # structural connectivity graph
 #--------------------------------------------------------------------------------------------
@@ -424,10 +425,10 @@ pos   = nx.spring_layout(G)
 # Define the opacity of the edges based on their weights
 weights   = nx.get_edge_attributes(G, 'weight')
 weights   = {k: v for k, v in weights.items()}
-alphas    = [0.25 + 0.75 * weights.get((u, v), 0) / max(weights.values()) for u, v in G.edges()]
+alphas    = [min_alpha + (1-min_alpha) * weights.get((u, v), 0) / max(weights.values()) for u, v in G.edges()]
 
 nx.draw_networkx_nodes(G, pos, ax=ax[0], node_size=500, node_color='lightblue')
-nx.draw_networkx_edges(G, pos=pos, ax=ax[0], alpha=alphas)
+nx.draw_networkx_edges(G, pos=pos, ax=ax[0], alpha=alphas, width=4)
 nx.draw_networkx_labels(G, pos, ax=ax[0])
 ax[0].axis('off')
 
@@ -445,10 +446,10 @@ pos   = nx.spring_layout(G)
 # Define the opacity of the edges based on their weights
 weights   = nx.get_edge_attributes(G, 'weight')
 weights   = {k: v for k, v in weights.items()}
-alphas    = [0.25 + 0.75 * weights.get((u, v), 0) / max(weights.values()) for u, v in G.edges()]
+alphas    = [min_alpha + (1-min_alpha) * weights.get((u, v), 0) / max(weights.values()) for u, v in G.edges()]
 
 nx.draw_networkx_nodes(G, pos, ax=ax[3], node_size=500, node_color='lightblue')
-nx.draw_networkx_edges(G, pos=pos, ax=ax[3], alpha=alphas, connectionstyle='arc3, rad = 0.1')
+nx.draw_networkx_edges(G, pos=pos, ax=ax[3], alpha=alphas, connectionstyle='arc3, rad = 0.1', width=2.5)
 nx.draw_networkx_labels(G, pos, ax=ax[3])
 ax[3].axis('off')
 
@@ -467,3 +468,8 @@ plt.show()
 ![png](siEEG_files/siEEG_20_0.png)
     
 
+
+
+```python
+
+```
