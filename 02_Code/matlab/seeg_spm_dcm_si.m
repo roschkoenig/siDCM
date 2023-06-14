@@ -174,17 +174,6 @@ else
     DCM.M.pE   = pE;
     DCM.M.pC   = pC;
 end
-% 
-% DCM.name = 'dcmtemp.mat';
-% save(DCM.name,'DCM')
-
-% load([Fdcm fs 'emp_priors.mat']);
-% pE.T        = P.T;
-% pE.L        = ones(length(pE.L),1) .* P.L;
-% pE.J        = P.J;
-% 
-% for n = 1:length(P.name)
-%     thisname        = P.name{n};
 %     nameid          = find(strcmp(chanlab, thisname));
 %     pE.G(nameid,:)  = P.G(n,:);
 % end
